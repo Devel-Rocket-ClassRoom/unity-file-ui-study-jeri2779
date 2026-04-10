@@ -29,19 +29,22 @@ public class FileEncryption : MonoBehaviour
 ```
      */
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+    string secretPath = Path.Combine(Application.persistentDataPath, "secret.txt");
+    string encryptedPath = Path.Combine(Application.persistentDataPath, "encrypted.dat");
+    string decryptedPath = Path.Combine(Application.persistentDataPath, "decrypted.txt");
+    string message = "Hello Unity World";
     void Start()
     {
-        using (FileStream fs = new FileStream(Path.Combine(Application.persistentDataPath, "secret.txt"), FileMode.Create, FileAccess.Write))
+        using (FileStream fs = new FileStream(secretPath, FileMode.Create, FileAccess.Write))
         {
-            File.WriteAllText(fs.Name, "Hello Unity World");
+            File.WriteAllText(fs.Name, message);
             Debug.Log($"원본: {File.ReadAllText(fs.Name)}");
             Debug.Log($"파일 크기: {fs.Position} bytes");
 
 
         }
-        using(FileStream reader = File.OpenRead(Path.Combine(Application.persistentDataPath, "secret.txt")))
-        using(FileStream writer = File.Create(Path.Combine(Application.persistentDataPath, "encrypted.dat")))
+        using(FileStream reader = File.OpenRead(secretPath))
+        using(FileStream writer = File.Create(encryptedPath))
         {
             int b;
             while((b = reader.ReadByte()) != -1)
