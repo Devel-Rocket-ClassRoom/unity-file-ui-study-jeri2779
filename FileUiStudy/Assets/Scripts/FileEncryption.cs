@@ -28,36 +28,60 @@ public class FileEncryption : MonoBehaviour
 원본과 일치: True
 ```
      */
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    string secretPath = Path.Combine(Application.persistentDataPath, "secret.txt");
-    string encryptedPath = Path.Combine(Application.persistentDataPath, "encrypted.dat");
-    string decryptedPath = Path.Combine(Application.persistentDataPath, "decrypted.txt");
-    string message = "Hello Unity World";
+ 
     void Start()
     {
+        
+        string secretPath = Path.Combine(Application.persistentDataPath, "secret.txt");
+        string encryptedPath = Path.Combine(Application.persistentDataPath, "encrypted.dat");
+        string decryptedPath = Path.Combine(Application.persistentDataPath, "decrypted.txt");
+        string message = "Hello Unity World";
+
+        
         using (FileStream fs = new FileStream(secretPath, FileMode.Create, FileAccess.Write))
         {
-            File.WriteAllText(fs.Name, message);
-            Debug.Log($"원본: {File.ReadAllText(fs.Name)}");
-            Debug.Log($"파일 크기: {fs.Position} bytes");
-
-
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            fs.Write(data, 0, data.Length);
         }
-        using(FileStream reader = File.OpenRead(secretPath))
-        using(FileStream writer = File.Create(encryptedPath))
+       
+
+        Debug.Log($"원본: {message}");
+
+      
+        using (FileStream reader = File.OpenRead(secretPath))      
+        using (FileStream writer = File.Create(encryptedPath))     
         {
             int b;
-            while((b = reader.ReadByte()) != -1)
+            while ((b = reader.ReadByte()) != -1)
             {
-                byte encryptedByte = (byte)(b ^ 0xAB);
-                writer.WriteByte(encryptedByte);    
-                Debug.Log($"읽은 바이트: {b} → 암호화된 바이트: {encryptedByte}");
-
+                writer.WriteByte((byte)(b ^ 0xAB));
             }
         }
       
 
-     
+        Debug.Log($"암호화 완료 (파일 크기: 17 bytes)");
+
+    
+        using (FileStream reader = File.OpenRead(encryptedPath))    
+        using (FileStream writer = File.Create(decryptedPath))      
+        {
+            int b;
+            while ((b = reader.ReadByte()) != -1)
+            {
+                writer.WriteByte((byte)(b ^ 0xAB));
+            }
+        }
+       
+
+        Debug.Log("복호화 완료");
+
+         
+        string decrypted = File.ReadAllText(decryptedPath);
+        Debug.Log($"복호화 결과: {decrypted}");
+        Debug.Log($"원본과 일치: {message == decrypted}");
+
+
+
 
 
 
