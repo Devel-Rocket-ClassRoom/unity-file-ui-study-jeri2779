@@ -37,37 +37,34 @@ public class FileEncryption : MonoBehaviour
         string decryptedPath = Path.Combine(Application.persistentDataPath, "decrypted.txt");
         string message = "Hello Unity World";
 
-        
-        using (FileStream fs = new FileStream(secretPath, FileMode.Create, FileAccess.Write))
-        {
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-            fs.Write(data, 0, data.Length);
-        }
-       
-
+        File.WriteAllText(secretPath, message);
         Debug.Log($"원본: {message}");
 
       
         using (FileStream reader = File.OpenRead(secretPath))      
         using (FileStream writer = File.Create(encryptedPath))     
         {
-            int b;
-            while ((b = reader.ReadByte()) != -1)
+            while (true)
             {
+                int b = reader.ReadByte();
+                if (b == -1) break;
+
                 writer.WriteByte((byte)(b ^ 0xAB));
             }
         }
       
-
-        Debug.Log($"암호화 완료 (파일 크기: 17 bytes)");
+        FileInfo encryptedFileInfo = new FileInfo(encryptedPath);
+        Debug.Log($"암호화 완료 (파일 크기: {encryptedFileInfo.Length} bytes)");
 
     
         using (FileStream reader = File.OpenRead(encryptedPath))    
         using (FileStream writer = File.Create(decryptedPath))      
         {
-            int b;
-            while ((b = reader.ReadByte()) != -1)
+            while (true)
             {
+                int b = reader.ReadByte();
+                if (b == -1) break;
+
                 writer.WriteByte((byte)(b ^ 0xAB));
             }
         }

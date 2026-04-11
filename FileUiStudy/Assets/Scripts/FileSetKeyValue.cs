@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class FileSetKeyValue : MonoBehaviour
@@ -41,15 +43,71 @@ language=en
 show_damage=true
 ```
      */
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-    }
+        string path = Path.Combine(Application.persistentDataPath, "settings.cfg");
 
-    // Update is called once per frame
-    void Update()
-    {
         
+        Dictionary<string, string> settings = new Dictionary<string, string>()
+        {
+            { "master_volume", "80" },
+            { "bgm_volume", "70" },
+            { "sfx_volume", "90" },
+            { "language", "kr" },
+            { "show_damage", "true" }
+        };
+
+        using (StreamWriter writer = new StreamWriter(path))
+        {
+            foreach (var kvp in settings)
+            {
+                writer.WriteLine($"{kvp.Key}={kvp.Value}");
+            }
+        }
+        
+
+      
+        Dictionary<string, string> loadedSettings = new Dictionary<string, string>();
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] parts = line.Split('=');
+                if (parts.Length == 2)
+                {
+                    loadedSettings[parts[0]] = parts[1];
+                }
+            }
+        }
+
+        Debug.Log($"설정 로드 완료 (항목 {loadedSettings.Count}개)");
+
+        // 3. 변경 전 출력
+        Debug.Log("--- 변경 전 ---");
+        Debug.Log($"bgm_volume = {loadedSettings["bgm_volume"]}");
+        Debug.Log($"language = {loadedSettings["language"]}");
+
+       
+        loadedSettings["bgm_volume"] = "50";
+        loadedSettings["language"] = "en";
+
+        
+        Debug.Log("--- 변경 후 저장 ---");
+        Debug.Log($"bgm_volume = {loadedSettings["bgm_volume"]}");
+        Debug.Log($"language = {loadedSettings["language"]}");
+
+        using (StreamWriter writer2 = new StreamWriter(path))
+        {
+            foreach (var kvp in loadedSettings)
+            {
+                writer2.WriteLine($"{kvp.Key}={kvp.Value}");
+            }
+        }
+        
+
+    
+        Debug.Log("--- 최종 파일 내용 ---");
+        Debug.Log(File.ReadAllText(path));
     }
 }
