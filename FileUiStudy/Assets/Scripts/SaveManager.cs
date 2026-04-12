@@ -1,22 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 
 public class SaveManager : MonoBehaviour
 {
     /*
-     * ### 문제 1. 세이브 파일 관리자
-
-`Application.persistentDataPath` 아래의 세이브 폴더를 탐색하여 저장된 파일 정보를 출력하고, 특정 파일을 복사/삭제할 수 있는 스크립트를 작성하시오.
-
-**요구사항**
-
-1. **세이브 폴더 준비**: `SaveData` 폴더를 만들고, `File.WriteAllText`로 테스트용 파일 3개를 생성할 것
-   - `save1.txt`, `save2.txt`, `save3.txt` (내용은 자유)
-2. **파일 목록 출력**: `Directory.GetFiles`로 폴더 내 모든 파일을 조회하고, 각 파일의 이름과 확장자를 출력할 것
-3. **파일 복사**: `save1.txt`를 `save1_backup.txt`로 복사할 것 (`File.Copy`)
-4. **파일 삭제**: `save3.txt`를 삭제할 것 (`File.Delete`)
-5. **최종 확인**: 작업 후 파일 목록을 다시 출력하여 결과를 확인할 것
-
+     * ### 문제 1. 세이브 파일 관리 시스템  
 **예상 출력**
 
 ```
@@ -32,62 +20,108 @@ save3.txt 삭제 완료
 - save2.txt (.txt)
 ```
      */
- 
+    //키를 누를시 기능이 실행되도록 구현 -> 생성/조회/복사/삭제/최종조회
+
+    private string saveDir;
+
     void Start()
     {
-        string saveDir = Path.Combine(Application.persistentDataPath, "SaveData");
+        saveDir = Path.Combine(Application.persistentDataPath, "SaveData");
+       
+        Debug.Log("Q : 세이브 폴더 준비 + 파일 생성");
+        Debug.Log("W : 파일 목록 조회");
+        Debug.Log("E : save1.txt → save1_backup.txt 복사");
+        Debug.Log("R : save3.txt 삭제");
+        Debug.Log("T : 최종 파일 목록 출력");
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Create();
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            List();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Copy();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Delete();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("=== 작업 후 파일 목록 ===");
+            List();
+        }
+    }
+
+    void Create()
+    {
         if (!Directory.Exists(saveDir))
         {
             Directory.CreateDirectory(saveDir);
-            Debug.Log("세이브 폴더 생성: " + saveDir);
+            Debug.Log($"세이브 폴더 생성: {saveDir}");
         }
         else
         {
-            Debug.Log("세이브 폴더 이미 존재: " + saveDir);
+            Debug.Log($"세이브 폴더 이미 존재: {saveDir}");
         }
 
-        string path1 = Path.Combine(saveDir, "save1.txt");
-        string path2 = Path.Combine(saveDir, "save2.txt");
-        string path3 = Path.Combine(saveDir, "save3.txt");
+        string saveText = "This is a save file.";
+        File.WriteAllText(Path.Combine(saveDir, "save1.txt"), saveText);
+        File.WriteAllText(Path.Combine(saveDir, "save2.txt"), saveText);
+        File.WriteAllText(Path.Combine(saveDir, "save3.txt"), saveText);
 
-        string saveConfig = "This is a save file.";
-        File.WriteAllText(path1, saveConfig);
-        File.WriteAllText(path2, saveConfig);
-        File.WriteAllText(path3, saveConfig);
-        Debug.Log("=== 세이브 파일 목록 ===");
-        string[] files = Directory.GetFiles(saveDir);
-
-
-        foreach (string file in files)
-        {
-            string fileName = Path.GetFileNameWithoutExtension(file);
-            string extension = Path.GetExtension(file);
-            Debug.Log($"- {fileName} ({extension})");
-        }
-
-        string backupPath = Path.Combine(saveDir, "save1_backup.txt");
-
-        File.Copy(path1, backupPath, true);
-        Debug.Log("save1.txt → save1_backup.txt 복사 완료");
-
-        File.Delete(path3);
-        Debug.Log("save3.txt 삭제 완료");
-
-        Debug.Log("=== 작업 후 파일 목록 ===");
-        files = Directory.GetFiles(saveDir);
-        foreach (string file in files)
-        {
-            string fileName = Path.GetFileNameWithoutExtension(file);
-            string extension = Path.GetExtension(file);
-            Debug.Log($"- {fileName} ({extension})");
-        }
-
-
-
-
-
+        
     }
 
-    
-  
+    void List()
+    {
+        if (!Directory.Exists(saveDir))
+        {
+            Debug.Log("세이브 폴더X");
+            return;
+        }
+        Debug.Log("=== 파일 목록 ===");
+        string[] listFiles = Directory.GetFiles(saveDir);
+        foreach (string file in listFiles)
+        {
+            string fileName = Path.GetFileName(file);//파일명 추출
+            string extension = Path.GetExtension(file);//확장자 추출
+            Debug.Log($"{fileName} ({extension})");
+        }
+    }
+    void Copy()
+    {
+        string copyPath = Path.Combine(saveDir, "save1.txt");
+        string backupPath = Path.Combine(saveDir, "save1_backup.txt");
+
+        if (!File.Exists(copyPath))
+        {
+            Debug.Log("save1.txt 가 없습니다.");
+            return; 
+        }
+
+        File.Copy(copyPath, backupPath, true);
+        Debug.Log("save1.txt → save1_backup.txt 복사 완료");
+    }
+
+    void Delete()
+    {
+        string deletePath = Path.Combine(saveDir, "save3.txt");
+
+        if (!File.Exists(deletePath))
+        {
+            Debug.Log("save3.txt가 이미 삭제되었습니다.");
+            return;
+        }
+
+        File.Delete(deletePath);
+        Debug.Log("save3.txt 삭제 완료");
+    }
 }

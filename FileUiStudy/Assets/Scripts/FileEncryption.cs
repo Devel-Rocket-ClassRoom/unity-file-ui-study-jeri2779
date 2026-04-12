@@ -1,23 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
+
 public class FileEncryption : MonoBehaviour
 {
     /*
-     * 	### 문제 2. FileStream으로 간이 파일 암호화
-
-`FileStream`의 `Position`과 바이트 조작을 활용하여 텍스트 파일을 간단히 암호화/복호화하는 스크립트를 작성하시오.
-
-**요구사항**
-
-1. **원본 파일 생성**: `File.WriteAllText`로 `secret.txt`에 영문 메시지를 저장할 것 (예: `"Hello Unity World"`)
-2. **암호화**: `FileStream`으로 `secret.txt`를 열어 모든 바이트를 한 바이트씩 읽고, 각 바이트를 특정 키 값(예: `0xAB`)과 XOR 연산한 뒤 
-    `encrypted.dat`에 쓸 것
-   - `ReadByte()`로 읽고 `-1`(EOF)이면 종료
-   - 각 바이트에 XOR 연산(`^`)을 적용하여 `WriteByte()`로 저장
-3. **복호화**: `encrypted.dat`를 읽어 각 바이트에 동일한 키(`0xAB`)로 다시 XOR 연산하여 `decrypted.txt`에 쓸 것
-   - XOR은 같은 키로 두 번 적용하면 원본이 복원되는 성질을 이용
-4. 원본, 암호화 결과, 복호화 결과를 각각 출력할 것
-5. 
 **예상 출력**
 
 ```
@@ -28,59 +14,119 @@ public class FileEncryption : MonoBehaviour
 원본과 일치: True
 ```
      */
- 
+
+    // XOR 암복호화에 사용할 키 상수
+    private const byte changeKey = 0xAB;
+
+    private string secretPath;     // 원본 파일 생성
+    private string encryptedPath;   // 암호화된 파일 생성
+    private string decryptedPath;   // 복호화된 파일 생성
+    private string message;         // 원본 출력
+
     void Start()
     {
-        
-        string secretPath = Path.Combine(Application.persistentDataPath, "secret.txt");
-        string encryptedPath = Path.Combine(Application.persistentDataPath, "encrypted.dat");
-        string decryptedPath = Path.Combine(Application.persistentDataPath, "decrypted.txt");
-        string message = "Hello Unity World";
+        secretPath   = Path.Combine(Application.persistentDataPath, "secret.txt");
+        encryptedPath = Path.Combine(Application.persistentDataPath, "encrypted.dat");
+        decryptedPath = Path.Combine(Application.persistentDataPath, "decrypted.txt");
+        message = "Hello Unity World";
 
+        // 원본 파일 생성은 최초 1회 고정 출력
         File.WriteAllText(secretPath, message);
         Debug.Log($"원본: {message}");
-      
-        using (FileStream reader = File.OpenRead(secretPath))      
-        using (FileStream writer = File.Create(encryptedPath))     
-        {
-            while (true)
-            {
-                int b = reader.ReadByte();
-                if (b == -1) break;
 
-                writer.WriteByte((byte)(b ^ 0xAB));
-            }
-        }
-      
-        FileInfo encryptedFileInfo = new FileInfo(encryptedPath);
-        Debug.Log($"암호화 완료 (파일 크기: {encryptedFileInfo.Length} bytes)");
-
-    
-        using (FileStream reader = File.OpenRead(encryptedPath))    
-        using (FileStream writer = File.Create(decryptedPath))      
-        {
-            while (true)
-            {
-                int b = reader.ReadByte();
-                if (b == -1) break;
-
-                writer.WriteByte((byte)(b ^ 0xAB));
-            }
-        }
- 
-        Debug.Log("복호화 완료");
-        string decrypted = File.ReadAllText(decryptedPath);
-        Debug.Log($"복호화 결과: {decrypted}");
-        Debug.Log($"원본과 일치: {message == decrypted}");
-
-
-
-
-
-
-
+        Debug.Log("Q : 암호화");
+        Debug.Log("W : 복호화");
+        Debug.Log("E : 복호화 결과 출력");
+        Debug.Log("R : 원본과 일치 여부 확인");
     }
 
-    
- 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Encrypt();
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Decrypt();
+
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PrintDecrypted();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            CheckEquals();
+        }
+    }
+
+    void Encrypt()
+    {
+        if (!File.Exists(secretPath)) 
+        { 
+            Debug.Log("파일X"); 
+            return; 
+        }
+
+        using (FileStream reader = File.OpenRead(secretPath))
+        using (FileStream writer = File.Create(encryptedPath))
+        {
+            while (true)
+            {
+                int byteValue = reader.ReadByte();
+                if (byteValue == -1) break;
+
+                writer.WriteByte((byte)(byteValue ^ changeKey)); //  암호화
+            }
+        }
+
+        FileInfo encryptedFileInfo = new FileInfo(encryptedPath);
+        Debug.Log($"암호화 완료 (파일 크기: {encryptedFileInfo.Length} bytes)");
+    }
+
+    void Decrypt()
+    {
+        if (!File.Exists(encryptedPath)) 
+        { 
+            Debug.Log("암호화 파일X"); 
+            return; 
+        }
+
+        using (FileStream reader = File.OpenRead(encryptedPath)) 
+        using (FileStream writer = File.Create(decryptedPath)) 
+        {
+            while (true)
+            {
+                int byteValue = reader.ReadByte();//한 바이트씩 read
+                if (byteValue == -1) break;
+
+                writer.WriteByte((byte)(byteValue ^ changeKey));// 복호화
+            }
+        }
+
+        Debug.Log("복호화 완료");
+    }
+
+    void PrintDecrypted()
+    {
+        if (!File.Exists(decryptedPath)) 
+        { 
+            Debug.Log("복호화 파일X"); 
+            return; 
+        }
+        string decrypted = File.ReadAllText(decryptedPath);
+        Debug.Log($"복호화 결과: {decrypted}");
+    }
+
+    void CheckEquals()
+    {
+        if (!File.Exists(decryptedPath)) 
+        { 
+            Debug.Log("복호화 파일X"); 
+            return; 
+        }
+        string decrypted = File.ReadAllText(decryptedPath);
+        Debug.Log($"원본과 일치: {message == decrypted}");
+    }
 }
