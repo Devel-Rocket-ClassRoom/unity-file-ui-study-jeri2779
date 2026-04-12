@@ -48,7 +48,7 @@ show_damage=true
         //파일 생성
         string path = Path.Combine(Application.persistentDataPath, "settings.cfg");
 
-        //파일내 키-값 쌍 작성
+        //키-값 작성
         Dictionary<string, string> settings = new Dictionary<string, string>()
         {
             { "master_volume", "80" },
@@ -57,7 +57,7 @@ show_damage=true
             { "language", "kr" },
             { "show_damage", "true" }
         };
-        //파일에 쓰기
+        //딕셔너리값 -> 파일
         using (StreamWriter writer = new StreamWriter(path))
         {
             foreach (var kvp in settings)
@@ -65,9 +65,9 @@ show_damage=true
                 writer.WriteLine($"{kvp.Key}={kvp.Value}");
             }
         }
-        
 
-        //파일에서 읽어오기
+
+        //파일 읽어오기 & 딕셔너리로 파싱
         Dictionary<string, string> loadedSettings = new Dictionary<string, string>();
         using (StreamReader reader = new StreamReader(path))
         {
@@ -77,8 +77,8 @@ show_damage=true
                 string[] parts = line.Split('=');
                 if (parts.Length == 2)
                 {
-                    string key = parts[0];  // "bgm_volume"
-                    string value = parts[1];  // "70"
+                    string key = parts[0];   
+                    string value = parts[1];   
                     loadedSettings[key] = value;
                 }
             }
@@ -86,7 +86,7 @@ show_damage=true
 
         Debug.Log($"설정 로드 완료 (항목 {loadedSettings.Count}개)");
 
-         //변경 전 출력
+         
         Debug.Log("--- 변경 전 ---");
         Debug.Log($"bgm_volume = {loadedSettings["bgm_volume"]}");
         Debug.Log($"language = {loadedSettings["language"]}");
@@ -94,11 +94,13 @@ show_damage=true
         //값 변경
         loadedSettings["bgm_volume"] = "50";
         loadedSettings["language"] = "en";
+        
 
-        //변경 후 출력
+        
         Debug.Log("--- 변경 후 저장 ---");
         Debug.Log($"bgm_volume = {loadedSettings["bgm_volume"]}");
         Debug.Log($"language = {loadedSettings["language"]}");
+     
 
         using (StreamWriter writer2 = new StreamWriter(path))
         {

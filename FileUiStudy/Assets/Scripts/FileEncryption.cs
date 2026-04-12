@@ -39,7 +39,6 @@ public class FileEncryption : MonoBehaviour
 
         File.WriteAllText(secretPath, message);
         Debug.Log($"원본: {message}");
-
       
         using (FileStream reader = File.OpenRead(secretPath))      
         using (FileStream writer = File.Create(encryptedPath))     
@@ -68,11 +67,8 @@ public class FileEncryption : MonoBehaviour
                 writer.WriteByte((byte)(b ^ 0xAB));
             }
         }
-       
-
+ 
         Debug.Log("복호화 완료");
-
-         
         string decrypted = File.ReadAllText(decryptedPath);
         Debug.Log($"복호화 결과: {decrypted}");
         Debug.Log($"원본과 일치: {message == decrypted}");
