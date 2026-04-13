@@ -71,3 +71,28 @@ public static class DataTableManager
 
     }
 }
+
+//#if UNITY_EDITOR
+//    [ContextMenu("언어/한국어로 변경")]
+//    private void SetKorean()
+//    {
+//        editorLang = Language.Korean;
+//        OnChangeLanguage(editorLang);
+//    }
+
+//    [ContextMenu("언어/영어로 변경")]
+//    private void SetEnglish()
+//    {
+//        editorLang = Language.English;
+//        OnChangeLanguage(editorLang);
+//    }
+
+//    [ContextMenu("언어/일본어로 변경")]
+//    private void SetJapanese()
+//    {
+//        editorLang = Language.Japanese;
+//        OnChangeLanguage(editorLang);
+//    }
+
+ 
+//#endif
