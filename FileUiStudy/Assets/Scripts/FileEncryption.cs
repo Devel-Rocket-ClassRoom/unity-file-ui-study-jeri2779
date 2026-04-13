@@ -48,7 +48,6 @@ public class FileEncryption : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             Decrypt();
-
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -89,7 +88,6 @@ public class FileEncryption : MonoBehaviour
             {
                 int byteValue = reader.ReadByte();//한 바이트씩 read
                 if (byteValue == -1) break;
-
                 writer.WriteByte((byte)(byteValue ^ changeKey));// 복호화
             }
         }

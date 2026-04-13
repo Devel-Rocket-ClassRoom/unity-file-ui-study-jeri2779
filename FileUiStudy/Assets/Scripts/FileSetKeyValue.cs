@@ -36,7 +36,7 @@ show_damage=true
         //KV 작성
         settings = new Dictionary<string, string>()
         {
-            { "master_volume", "80" },
+            { "master_volume", "80" },//key-value
             { "bgm_volume", "70" },
             { "sfx_volume", "90" },
             { "language", "kr" },
@@ -96,6 +96,8 @@ show_damage=true
         Debug.Log("--- 변경 전 ---");
         Debug.Log($"bgm_volume = {settings["bgm_volume"]}");
         Debug.Log($"language = {settings["language"]}");
+        //settings["bgm_volume"] = "70";
+        //settings["language"] = "kr";
     }
 
     void AfterModify()

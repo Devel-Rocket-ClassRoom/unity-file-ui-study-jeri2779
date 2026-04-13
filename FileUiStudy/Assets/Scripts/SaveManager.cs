@@ -28,7 +28,7 @@ save3.txt 삭제 완료
     {
         saveDir = Path.Combine(Application.persistentDataPath, "SaveData");
        
-        Debug.Log("Q : 세이브 폴더 준비 + 파일 생성");
+        Debug.Log("Q : 파일 생성");
         Debug.Log("W : 파일 목록 조회");
         Debug.Log("E : save1.txt → save1_backup.txt 복사");
         Debug.Log("R : save3.txt 삭제");
