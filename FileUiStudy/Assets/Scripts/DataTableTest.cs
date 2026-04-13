@@ -16,11 +16,12 @@ public class DataTableTest : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) Variables.language = Language.Korean;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) Variables.language = Language.English;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) Variables.language = Language.Japanese;
+         
+        if (Input.GetKeyDown(KeyCode.Q)) Variables.language = Language.Korean;
+        if (Input.GetKeyDown(KeyCode.W)) Variables.language = Language.English;
+        if (Input.GetKeyDown(KeyCode.E)) Variables.language = Language.Japanese;
     }
-
+    //버튼 클릭 
     public void OnClickStringTableKr()
     {
         //LoadStringTable(NameStringTablekr);

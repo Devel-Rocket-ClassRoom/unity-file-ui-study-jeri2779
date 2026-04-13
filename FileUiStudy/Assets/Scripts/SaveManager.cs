@@ -88,7 +88,7 @@ save3.txt 삭제 완료
             return;
         }
         Debug.Log("=== 파일 목록 ===");
-        string[] listFiles = Directory.GetFiles(saveDir);
+        string[] listFiles = Directory.GetFiles(saveDir);//
         foreach (string file in listFiles)
         {
             string fileName = Path.GetFileName(file);//파일명 추출

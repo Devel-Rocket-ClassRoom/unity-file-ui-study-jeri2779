@@ -48,10 +48,9 @@ public static class DataTableManager
     public static void ChangeLanguage(Language lang)
     {
         string newId = DataTableIds.StringTableIds[(int)lang];
-        if (tables.ContainsKey(newId))
-            return;
+        if (tables.ContainsKey(newId)) 
         {
-            tables.Remove(DataTableIds.String);
+            return;
         }
         string oldId = string.Empty;
         foreach(var id in DataTableIds.StringTableIds)

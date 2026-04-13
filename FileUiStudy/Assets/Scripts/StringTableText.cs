@@ -5,7 +5,7 @@ using TMPro;
 public class StringTableText : MonoBehaviour
 {
     public string id;
-    public string key;
+ 
     public TextMeshProUGUI text;
 
  
@@ -19,10 +19,6 @@ public class StringTableText : MonoBehaviour
         if (text == null) return;  
         text.text = DataTableManager.StringTable.Get(id);
     }
-    public void OnChangedKey()
-    {
-        if (text == null) return;  
-        text.text = DataTableManager.StringTable.Get(key);
-    }   
+      
 
 }
