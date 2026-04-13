@@ -24,11 +24,9 @@ language=en
 show_damage=true
 ```
      */
-
+    //키를 누를시 기능이 실행되도록 구현 ->  변경전/변경후/최종출력
     private string path; //세팅 파일 생성
-    
- 
-    private Dictionary<string, string> settings;
+    private Dictionary<string, string> settings;//딕셔너리 생성
 
     void Start()
     {
@@ -53,7 +51,7 @@ show_damage=true
             }
         }
 
-        //파일 읽어오기 & 딕셔너리 파싱
+        //파일 읽어오기 & 딕셔너리 값 파싱
         settings = new Dictionary<string, string>();
         using (StreamReader reader = new StreamReader(path))
         {
@@ -119,12 +117,7 @@ show_damage=true
         }
     }
     void FinalPrint()
-    {
-        if (!File.Exists(path))
-        {
-            Debug.Log("파일이 없습니다.");
-            return;
-        }
+    { 
         Debug.Log("--- 최종 파일 내용 ---");
         Debug.Log(File.ReadAllText(path));
     }

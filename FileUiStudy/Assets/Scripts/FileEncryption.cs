@@ -11,12 +11,11 @@ public class FileEncryption : MonoBehaviour
 암호화 완료 (파일 크기: 17 bytes)
 복호화 완료
 복호화 결과: Hello Unity World
-원본과 일치: True
-```
-     */
+원본과 일치: True */
+    //키를 누를시 기능이 실행되도록 구현 ->  암호화/복호화/복호화결과/원본과일치
 
-    // XOR 암복호화에 사용할 키 상수
-    private const byte changeKey = 0xAB;
+
+    private const byte changeKey = 0xAB; // xor연산용 16진수 키
 
     private string secretPath;     // 원본 파일 생성
     private string encryptedPath;   // 암호화된 파일 생성
@@ -25,7 +24,7 @@ public class FileEncryption : MonoBehaviour
 
     void Start()
     {
-        secretPath   = Path.Combine(Application.persistentDataPath, "secret.txt");
+        secretPath   = Path.Combine(Application.persistentDataPath, "secret.txt"); 
         encryptedPath = Path.Combine(Application.persistentDataPath, "encrypted.dat");
         decryptedPath = Path.Combine(Application.persistentDataPath, "decrypted.txt");
         message = "Hello Unity World";
@@ -36,8 +35,8 @@ public class FileEncryption : MonoBehaviour
 
         Debug.Log("Q : 암호화");
         Debug.Log("W : 복호화");
-        Debug.Log("E : 복호화 결과 출력");
-        Debug.Log("R : 원본과 일치 여부 확인");
+        Debug.Log("E : 복호화 결과");
+        Debug.Log("R : 원본과 일치");
     }
 
     void Update()
@@ -63,12 +62,7 @@ public class FileEncryption : MonoBehaviour
 
     void Encrypt()
     {
-        if (!File.Exists(secretPath)) 
-        { 
-            Debug.Log("파일X"); 
-            return; 
-        }
-
+        // 원본 -> 암호화
         using (FileStream reader = File.OpenRead(secretPath))
         using (FileStream writer = File.Create(encryptedPath))
         {
@@ -87,12 +81,7 @@ public class FileEncryption : MonoBehaviour
 
     void Decrypt()
     {
-        if (!File.Exists(encryptedPath)) 
-        { 
-            Debug.Log("암호화 파일X"); 
-            return; 
-        }
-
+       // 암호화 -> 복호화
         using (FileStream reader = File.OpenRead(encryptedPath)) 
         using (FileStream writer = File.Create(decryptedPath)) 
         {
@@ -104,28 +93,17 @@ public class FileEncryption : MonoBehaviour
                 writer.WriteByte((byte)(byteValue ^ changeKey));// 복호화
             }
         }
-
         Debug.Log("복호화 완료");
     }
 
     void PrintDecrypted()
     {
-        if (!File.Exists(decryptedPath)) 
-        { 
-            Debug.Log("복호화 파일X"); 
-            return; 
-        }
         string decrypted = File.ReadAllText(decryptedPath);
         Debug.Log($"복호화 결과: {decrypted}");
     }
 
     void CheckEquals()
     {
-        if (!File.Exists(decryptedPath)) 
-        { 
-            Debug.Log("복호화 파일X"); 
-            return; 
-        }
         string decrypted = File.ReadAllText(decryptedPath);
         Debug.Log($"원본과 일치: {message == decrypted}");
     }
