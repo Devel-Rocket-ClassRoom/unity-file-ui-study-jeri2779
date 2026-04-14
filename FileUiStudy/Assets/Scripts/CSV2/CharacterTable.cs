@@ -11,28 +11,28 @@ public class CharacterData
     public string Id { get; set; }
     public string Type { get; set; }
     [Name("Name")]
-    public string charName { get; set; }
-    [Name("Info")]
+    public string CharName { get; set; }
+    [Name("Desc")]
     public string Description { get; set; }
-    [Name("Atk")]
+    [Name("Attack")]
     public float AttackPower { get; set; }
-    [Name("Def")]
+    [Name("Defense")]
     public float DefensePower { get; set; }
     public float Hp { get; set; }
     [Name("Icon")]
     public string iconImage { get; set; }
 
-    public string StringName => DataTableManager.StringTable.Get(charName);
+    public string StringName => DataTableManager.StringTable.Get(CharName);
     public string StringInfo => DataTableManager.StringTable.Get(Description);
 
-    public string StringAtk => DataTableManager.StringTable.Get(AttackPower.ToString());
-    public string StringDef => DataTableManager.StringTable.Get(DefensePower.ToString());
-    public string StringHp => DataTableManager.StringTable.Get(Hp.ToString());
+    public string StringAtk => AttackPower.ToString("F0");
+    public string StringDef => DefensePower.ToString("F0");
+    public string StringHp => Hp.ToString("F0");
     public string StringType => DataTableManager.StringTable.Get(Type);
-    public Sprite Icon => Resources.Load<Sprite>($"Icons/{iconImage}");
+    public Sprite Icon => Resources.Load<Sprite>($"Icon/{iconImage}");
     public override string ToString()
     {
-        return $"Id: {Id} / {charName} / {Description} / {AttackPower} / {DefensePower} / {Hp} / {iconImage}";
+        return $"Id: {Id} / {CharName} / {Description} / {AttackPower} / {DefensePower} / {Hp} / {iconImage}";
     }
 
 }

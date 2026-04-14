@@ -13,7 +13,7 @@ public class CharTableSelect : MonoBehaviour
 
     private void OnValidate()
     {
-        Debug.Log("OnValidate");
+        
         OnChangeItemId();
     }
     private void OnEnable()
@@ -25,25 +25,36 @@ public class CharTableSelect : MonoBehaviour
     public void OnChangeItemId()
     {
         CharacterData data = DataTableManager.CharacterTable.Get(charId);
-        if (data != null)
+        
+        if (data== null)
         {
-            if (icon == null || nameText == null)
+                Debug.LogWarning($"[CharTableSelect] 캐릭터 데이터 없음: '{charId}'");
+                return;
+        }
+        if (icon == null || nameText == null)
             {
-                Debug.LogWarning("CharTableSelect: Inspector 필드가 할당되지 않았습니다.");
+                Debug.LogWarning(" 필드가 할당되지 않았습니다.");
                 return;
             }
+         
             icon.sprite = data.Icon;
-            nameText.id = data.StringName;
+            nameText.id = data.CharName;
             nameText.OnChangedId();
-        }
-        else
+
+        if (typeText != null)
         {
-            Debug.LogWarning($"캐릭터 데이터 없음'{charId}'");
+            typeText.id = data.Type;
+            typeText.OnChangedId();
         }
     }
 
     public void OnClick()
     {
+        if (charInfo == null)
+        {
+            Debug.LogWarning("[CharTableSelect] charInfo가 연결되지 않았습니다.");
+            return;
+        }
         charInfo.SetCharacterData(charId);
     }
 }

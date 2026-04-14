@@ -1,4 +1,4 @@
-﻿Id,String
+Id,String
 HELLO,Hello~
 BYE,Bye~
 YOU DIE,You Die...
@@ -10,3 +10,13 @@ Item1Desc,This is a sword.
 Item2Desc,This is a shield.
 Item3Desc,This is a bow.
 Item4Desc,This is a potion.
+Warrior,Warrior
+Mage,Mage
+Tank,Tank
+Archer,Archer
+WarriorInfo, close combat. 
+MageInfo,A sorcerer 
+TankInfo,A guardian 
+ArcherInfo,A sniper 
+Melee,Melee
+Ranged,Ranged

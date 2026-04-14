@@ -1,75 +1,72 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
+ 
+[RequireComponent(typeof(Button))]
 public class CharTableMain : MonoBehaviour
 {
-    //name/atk/def/info/icon/
+    
     public Image icon;
+
+  
     public LocalizationText nameText;
     public LocalizationText infoText;
-    public LocalizationText atkText;
-    public LocalizationText defText;
-    public LocalizationText hpText;
     public LocalizationText typeText;
 
-    public void OnEnable()
-    {
 
-    }
+    public TextMeshProUGUI atkText;
+    public TextMeshProUGUI defText;
+    public TextMeshProUGUI hpText;
+
+  
+
     public void SetEmpty()
     {
-        Debug.Log("Empty 호출됨");
         icon.sprite = null;
+
         nameText.id = string.Empty;
         infoText.id = string.Empty;
-        atkText.id = string.Empty;
-        defText.id = string.Empty;
-        hpText.id = string.Empty;
         typeText.id = string.Empty;
-        //nameText.text.text = string.Empty;
-        //descText.text.text = string.Empty;
 
+        atkText.text = string.Empty;
+        defText.text = string.Empty;
+        hpText.text = string.Empty;
+       
     }
 
     public void SetCharacterData(CharacterData data)
     {
         if (icon == null || nameText == null || infoText == null ||
-            atkText == null || defText == null || hpText == null || typeText == null)
+            typeText == null || atkText == null || defText == null || hpText == null)
         {
-            Debug.LogWarning("CharTableMain: Inspector 필드가 할당되지 않았습니다.");
+            Debug.LogWarning(" 필드가 할당되지 않았습니다.");
             return;
         }
+
         icon.sprite = data.Icon;
-        nameText.id = data.StringName;
-        infoText.id = data.StringInfo;
-        atkText.id = data.StringAtk;
-        defText.id = data.StringDef;
-        hpText.id = data.StringHp;
-        typeText.id = data.StringType;
-        
 
+        nameText.id = data.CharName;
         nameText.OnChangedId();
+
+        infoText.id = data.Description;
         infoText.OnChangedId();
-        atkText.OnChangedId();
-        defText.OnChangedId();
-        hpText.OnChangedId();
+
+        typeText.id = data.Type;
         typeText.OnChangedId();
-        Debug.Log("Data 설정됨");
-        Debug.Log(data.StringName);
-        Debug.Log(DataTableManager.StringTable.Get(data.StringName));
 
+        atkText.text =   data.StringAtk;
+        defText.text =   data.StringDef;
+        hpText.text =   data.StringHp;
 
+        Debug.Log($"[CharTableMain] 캐릭터 설정: {data}");
     }
 
     public void SetCharacterData(string charId)
     {
         CharacterData data = DataTableManager.CharacterTable.Get(charId);
         if (data != null)
-        {
             SetCharacterData(data);
-
-        }
     }
 }
 

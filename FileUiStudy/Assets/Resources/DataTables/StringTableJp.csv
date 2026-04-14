@@ -1,4 +1,4 @@
-﻿Id,String
+Id,String
 HELLO,やあ
 BYE,じゃあな
 YOU DIE,あなたは死ぬ
@@ -10,3 +10,13 @@ Item1Desc,これは剣だ。
 Item2Desc,これは盾だ。
 Item3Desc,これは弓だ。
 Item4Desc,これはポーションだ。
+Warrior,戦士
+Mage,魔法使い
+Tank,タンク
+Archer,アーチャー
+WarriorInfo,近接戦闘の達人。 
+MageInfo,魔法攻 
+TankInfo, 守護者。 
+ArcherInfo,スナイパー。
+Melee,近接
+Ranged,遠距離
