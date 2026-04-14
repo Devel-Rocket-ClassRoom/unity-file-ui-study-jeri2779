@@ -6,6 +6,8 @@ public static class DataTableManager
         new Dictionary<string, DataTable>();
 
     public static StringTable StringTable => Get<StringTable>(DataTableIds.String);
+    public static ItemTable itemTable => Get<ItemTable>(DataTableIds.Item);
+    public static CharacterTable CharacterTable => Get<CharacterTable>(DataTableIds.Character);
 
 #if UNITY_EDITOR
     public static StringTable GetStringTable(Language lang)
@@ -32,8 +34,15 @@ public static class DataTableManager
             stringTable.Load(id);
             tables.Add(id, stringTable);
         }
+    var itemTable = new ItemTable();
+    itemTable.Load(DataTableIds.Item);
+    tables.Add(DataTableIds.Item, itemTable);
+    var characterTable = new CharacterTable();
+    characterTable.Load(DataTableIds.Character);
+    tables.Add(DataTableIds.Character, characterTable);
 #endif
     }
+
 
     public static T Get<T>(string id) where T : DataTable
     {
@@ -65,28 +74,25 @@ public static class DataTableManager
         stringTable.Load(DataTableIds.StringTableIds[(int)lang]);
         tables.Remove(oldId);
         tables.Add(newId, stringTable);
-      
-
-
     }
 }
 
 //#if UNITY_EDITOR
-//    [ContextMenu("언어/한국어로 변경")]
+//    [ContextMenu("한국어")]
 //    private void SetKorean()
 //    {
 //        editorLang = Language.Korean;
 //        OnChangeLanguage(editorLang);
 //    }
 
-//    [ContextMenu("언어/영어로 변경")]
+//    [ContextMenu("영어")]
 //    private void SetEnglish()
 //    {
 //        editorLang = Language.English;
 //        OnChangeLanguage(editorLang);
 //    }
 
-//    [ContextMenu("언어/일본어로 변경")]
+//    [ContextMenu("일본어")]
 //    private void SetJapanese()
 //    {
 //        editorLang = Language.Japanese;

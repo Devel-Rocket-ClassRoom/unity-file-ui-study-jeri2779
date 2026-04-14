@@ -33,19 +33,19 @@ public class DataTableTest : MonoBehaviour
     }
     public void OnClickStringTableEn()
     {
-        Debug.Log(DataTableManager.StringTable.Get("Abc"));
+        Debug.Log(DataTableManager.StringTable.Get("Bye"));
         //LoadStringTable(NameStringTableEn);
         //var table = new StringTable();
         //table.Load(NameStringTableEn);
-        //Debug.Log(table.Get("Abc"));  
+        //Debug.Log(table.Get("Bye"));  
     }
     public void OnClickStringTableJp()
     {
-        Debug.Log(DataTableManager.StringTable.Get("jp01"));
+        Debug.Log(DataTableManager.StringTable.Get("YouDie"));
         //LoadStringTable(NameStringTableJp);
         //var table = new StringTable();
         //table.Load(NameStringTableJp);
-        //Debug.Log(table.Get("jp01"));  
+        //Debug.Log(table.Get("YouDie"));  
     }
 
     public void LoadStringTable(string strname)

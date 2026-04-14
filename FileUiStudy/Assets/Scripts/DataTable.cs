@@ -7,13 +7,10 @@ using System.Linq;
 
 public abstract class DataTable  
 {
-    public static readonly string FormatPath = "DataTables/{0}";  
- 
+    public static readonly string FormatPath = "DataTables/{0}";
 
-    public virtual void Load(string filename)
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void Load(string filename);
+  
 
     protected List<T> LoadCSV<T>(string text)
     {

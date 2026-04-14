@@ -1,0 +1,5 @@
+﻿Id,Type,Name,Info,Atk,Def,Hp,Icon
+Char1,Melee,Warrior,WarriorInfo,100,100,1000,Icon_Warrior
+Char2,Ranged,Mage,MageInfo,150,70,500,Icon_Mage
+Char3,Melee,Tank,TankInfo,50,250,1500,Icon_Tank
+Char4,Ranged,Archer,ArcherInfo,120,80,800,Icon_Archer

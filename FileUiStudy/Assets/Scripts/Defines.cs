@@ -5,6 +5,14 @@
     Japanese
 }
 
+public enum ItemType
+{
+    None,
+    Weapon,
+    Equip,
+    Consumable
+}
+
 public static class Variables
 {
     public static event System.Action OnLanguageChanged;
@@ -12,7 +20,7 @@ public static class Variables
 
     public static Language language
     {
-        get => languages;
+        get { return languages; }
         set
         {
             if (languages == value) return;
@@ -32,4 +40,8 @@ public static class DataTableIds
         "StringTableJp"
     };
     public static string String => StringTableIds[(int)Variables.language];
+    public static readonly string Item = "ItemTable";
+    public static readonly string Character = "CharacterTable";
 }
+
+ 
