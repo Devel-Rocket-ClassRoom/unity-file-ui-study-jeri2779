@@ -18,9 +18,6 @@ public class CharTableMain : MonoBehaviour
     public TextMeshProUGUI atkText;
     public TextMeshProUGUI defText;
     public TextMeshProUGUI hpText;
-
-  
-
     public void SetEmpty()
     {
         icon.sprite = null;
@@ -32,7 +29,6 @@ public class CharTableMain : MonoBehaviour
         atkText.text = string.Empty;
         defText.text = string.Empty;
         hpText.text = string.Empty;
-       
     }
 
     public void SetCharacterData(CharacterData data)
@@ -48,8 +44,10 @@ public class CharTableMain : MonoBehaviour
 
         nameText.id = data.CharName;
         nameText.OnChangedId();
+
         infoText.id = data.Description;
         infoText.OnChangedId();
+
         typeText.id = data.Type;
         typeText.OnChangedId();
 

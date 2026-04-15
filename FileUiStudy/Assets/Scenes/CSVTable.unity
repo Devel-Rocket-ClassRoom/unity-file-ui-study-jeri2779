@@ -2725,7 +2725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6b49b1ea9cf0b46afa8dab36a8bcd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalizationText
-  editorLang: 1
+  editorLang: 0
   id: Mage
   text: {fileID: 555404407}
 --- !u!1 &580259649
@@ -5295,7 +5295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6b49b1ea9cf0b46afa8dab36a8bcd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalizationText
-  editorLang: 1
+  editorLang: 0
   id: Ranged
   text: {fileID: 1270272647}
 --- !u!1 &1272448924
