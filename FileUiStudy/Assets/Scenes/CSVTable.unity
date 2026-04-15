@@ -3506,7 +3506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharTableTest1
   charId: Char1
   icon: {fileID: 1178515327}
-  nameText: {fileID: 1048639951}
+  nameText: {fileID: 1290763708}
   typeText: {fileID: 996239305}
   charInfo: {fileID: 1396658403}
 --- !u!1 &828920896
@@ -4505,7 +4505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LocalizationText
   editorLang: 0
   id: 
-  text: {fileID: 1678343493}
+  text: {fileID: 1103209381}
 --- !u!1 &1119496945
 GameObject:
   m_ObjectHideFlags: 0
@@ -5586,7 +5586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalizationText
   editorLang: 0
-  id: "\uD0A4 \uC5C6\uC74C"
+  id: Warrior
   text: {fileID: 1290763706}
 --- !u!1 &1340806445
 GameObject:
@@ -5943,7 +5943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LocalizationText
   editorLang: 0
   id: 
-  text: {fileID: 0}
+  text: {fileID: 1103209381}
 --- !u!114 &1396658403
 MonoBehaviour:
   m_ObjectHideFlags: 0

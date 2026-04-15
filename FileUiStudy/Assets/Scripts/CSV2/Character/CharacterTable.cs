@@ -10,7 +10,7 @@ public class CharacterData
 {
     public string Id { get; set; }
     public string Type { get; set; }
-    [Name("Name")]
+    [Name("Name")]//csv 파일내 컬럼 매칭용
     public string CharName { get; set; }
     [Name("Desc")]
     public string Description { get; set; }
@@ -25,9 +25,9 @@ public class CharacterData
     public string StringName => DataTableManager.StringTable.Get(CharName);
     public string StringInfo => DataTableManager.StringTable.Get(Description);
 
-    public string StringAtk => AttackPower.ToString("F0");
-    public string StringDef => DefensePower.ToString("F0");
-    public string StringHp => Hp.ToString("F0");
+    public string StringAtk => AttackPower.ToString();
+    public string StringDef => DefensePower.ToString();
+    public string StringHp => Hp.ToString();
     public string StringType => DataTableManager.StringTable.Get(Type);
     public Sprite Icon => Resources.Load<Sprite>($"Icon/{iconImage}");
     public override string ToString()

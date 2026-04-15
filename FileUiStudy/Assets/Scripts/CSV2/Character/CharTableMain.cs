@@ -40,7 +40,7 @@ public class CharTableMain : MonoBehaviour
         if (icon == null || nameText == null || infoText == null ||
             typeText == null || atkText == null || defText == null || hpText == null)
         {
-            Debug.LogWarning(" 필드가 할당되지 않았습니다.");
+            Debug.LogWarning("할당X");
             return;
         }
 
@@ -48,18 +48,17 @@ public class CharTableMain : MonoBehaviour
 
         nameText.id = data.CharName;
         nameText.OnChangedId();
-
         infoText.id = data.Description;
         infoText.OnChangedId();
-
         typeText.id = data.Type;
         typeText.OnChangedId();
 
-        atkText.text =   data.StringAtk;
-        defText.text =   data.StringDef;
-        hpText.text =   data.StringHp;
 
-        Debug.Log($"[CharTableMain] 캐릭터 설정: {data}");
+        atkText.text = ($"ATK : {data.StringAtk}");
+        defText.text = ($"DEF : {data.StringDef}");
+        hpText.text = ($"HP : {data.StringHp}");
+
+        Debug.Log($"캐릭터 : {data}");
     }
 
     public void SetCharacterData(string charId)
