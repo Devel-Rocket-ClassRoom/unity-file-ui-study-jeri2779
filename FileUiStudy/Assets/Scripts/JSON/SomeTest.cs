@@ -63,7 +63,8 @@ public class SomeTest : MonoBehaviour
     public string FullFilePath => Path.Combine(Application.persistentDataPath, "SomeTest", FileName);
 
     public string[] prefabNames =
-    {    "Cube",
+    {   
+        "Cube",
         "Sphere",
         "Capsule",
         "Cylinder"
@@ -163,6 +164,7 @@ public class SomeTest : MonoBehaviour
         var prefabName = prefabNames[Random.Range(0, prefabNames.Length)];
         var prefab = Resources.Load<JsonTestObject>(prefabName);
         var obj = Instantiate(prefab);
+
         obj.transform.position = Random.insideUnitSphere * 10f;
         obj.transform.rotation = Random.rotation;
         obj.transform.localScale = Vector3.one * Random.Range(0.5f, 3f);
@@ -187,16 +189,15 @@ public class SomeTest : MonoBehaviour
 
     public void OnSave()
     {
-        var saveList = new List<ObjectSaveData>();
         var objs = GameObject.FindGameObjectsWithTag("TestObject");
+        var saveList = new List<ObjectSaveData>();
         foreach (var obj in objs)
         {
             var jsonTestObject = obj.GetComponent<JsonTestObject>();
             saveList.Add(jsonTestObject.GetSaveData());
-
+            var json = JsonConvert.SerializeObject(saveList, jsonSetting);
+            File.WriteAllText(FullFilePath, json);
         }
-        var json = JsonConvert.SerializeObject(saveList, jsonSetting);
-        File.WriteAllText(FullFilePath, json);
     }
 
     public void OnLoad()

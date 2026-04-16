@@ -56,5 +56,9 @@ public class ItemTable : DataTable
         return table[id];
   
     }
+    public IReadOnlyList<string> GetAllIds()//딕셔너리가 private이므로 외부에서 키 읽기용 
+    {
+        return new List<string>(table.Keys);
+    }
 }
 

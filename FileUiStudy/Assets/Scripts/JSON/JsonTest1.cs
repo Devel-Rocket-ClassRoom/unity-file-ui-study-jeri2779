@@ -56,14 +56,19 @@ public class JsonTest1 : MonoBehaviour
 
             };
 
-            string pathFolder = Path.Combine(Application.persistentDataPath, "JsonTest");
+            string pathFolder = Path.Combine(
+                Application.persistentDataPath, 
+                "JsonTest");
 
             if (!Directory.Exists(pathFolder))
             {
                 Directory.CreateDirectory(pathFolder);
             }
 
-            string path = Path.Combine(pathFolder, "playerJson2.json");
+            string path = Path.Combine(
+                pathFolder, 
+                "playerJson2.json");
+
             string json = JsonConvert.SerializeObject(
                 playerState,
                 Formatting.Indented,
@@ -86,7 +91,9 @@ public class JsonTest1 : MonoBehaviour
                 "playerJson2.json"
                 );//파일 경로 설정
             string json = File.ReadAllText(path); //파일에서 json 문자열 읽어오기
-            PlayerState playerState = JsonConvert.DeserializeObject<PlayerState>(json, jsonSetting); //json 문자열을 PlayerState 객체로 변환
+            PlayerState playerState = JsonConvert.DeserializeObject<PlayerState>(
+                json, 
+                jsonSetting); //json 문자열을 PlayerState 객체로 변환
             Debug.Log(json);
             Debug.Log(playerState);
             Debug.Log(playerState.position);

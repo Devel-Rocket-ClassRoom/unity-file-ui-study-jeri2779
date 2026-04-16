@@ -40,8 +40,8 @@ public class ButtonManager : MonoBehaviour
         // cube 저장(단일용)
         SomeClass someClass = new SomeClass
         {
-            pos   = cube.transform.position,
-            rot   = cube.transform.rotation,
+            pos = cube.transform.position,
+            rot = cube.transform.rotation,
             scale = cube.transform.localScale,
             color = cube.GetComponent<Renderer>().material.color
         };
@@ -56,16 +56,17 @@ public class ButtonManager : MonoBehaviour
             if (obj == null) continue;
             shapeListData.shapes.Add(new ShapeData
             {
-                primitive  = type,
-                pos   = obj.transform.position,
-                rot   = obj.transform.rotation,
+                primitive = type,
+                pos = obj.transform.position,
+                rot = obj.transform.rotation,
                 scale = obj.transform.localScale,
                 color = obj.GetComponent<Renderer>().material.color
-            });
+            }
+            );
         }
         string shapesPath = Path.Combine(Application.persistentDataPath, "SomeTest", "ShapeList.json");
         File.WriteAllText(shapesPath, JsonConvert.SerializeObject(shapeListData, jsonSettings));
-        
+
     }
 
     public void OnClickLoad()
@@ -101,7 +102,7 @@ public class ButtonManager : MonoBehaviour
             newObj.GetComponent<Renderer>().material.color = data.color;
             createObj.Add((data.primitive, newObj));
         }
-        
+
     }
 
     public void OnClickCreate()
@@ -124,13 +125,13 @@ public class ButtonManager : MonoBehaviour
             createObj.Add((selectedType, obj));
         }
     }
-         
+
 
     public void OnClickDelete()
     {
         foreach (var (_, obj) in createObj)
             if (obj != null) Destroy(obj);
         createObj.Clear();
-         
+
     }
 }
