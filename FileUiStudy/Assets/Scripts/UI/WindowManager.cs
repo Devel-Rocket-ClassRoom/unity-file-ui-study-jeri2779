@@ -11,6 +11,7 @@ public class WindowManager : MonoBehaviour
     {
         foreach (var window in windows)
         {
+            if (window == null) continue;
             window.gameObject.SetActive(false);
             window.Init(this);
         }
@@ -26,5 +27,5 @@ public class WindowManager : MonoBehaviour
         return windows[currentWindowId];
     }
     
-
 }
+//
