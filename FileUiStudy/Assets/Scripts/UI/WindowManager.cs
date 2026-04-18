@@ -9,6 +9,7 @@ public class WindowManager : MonoBehaviour
 
     private void Awake()
     {
+        OptionManager.LoadOptions();  //저장된 옵션 불러오기
         foreach (var window in windows)
         {
             if (window == null) continue;

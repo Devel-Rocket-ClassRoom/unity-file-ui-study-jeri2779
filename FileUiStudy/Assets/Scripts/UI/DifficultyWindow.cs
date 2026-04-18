@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using System; 
 
 public class DifficultyWindow : GenericWindow
 {
@@ -32,7 +33,12 @@ public class DifficultyWindow : GenericWindow
     public override void Open()
     {
         base.Open();
+        selected = Array.IndexOf(difficultyLevels, 
+                    OptionManager.optionData.difficulty);
+        if (selected < 0) selected = 0;
+
         toggles[selected].isOn = true;
+        
     }
     public override void Close()
     {
@@ -43,7 +49,7 @@ public class DifficultyWindow : GenericWindow
     {
         if (active)
         {
-            Debug.Log("Easy");
+             
             selected = 0;
             difficultyLevels[selected] = "Easy";
         }
@@ -52,7 +58,7 @@ public class DifficultyWindow : GenericWindow
     {
         if (active)
         {
-            Debug.Log("Normal");
+            
             selected = 1;
             difficultyLevels[selected] = "Normal";
         }
@@ -61,7 +67,7 @@ public class DifficultyWindow : GenericWindow
     {
         if (active)
         {
-            Debug.Log("Hard");
+           
             selected = 2;
             difficultyLevels[selected] = "Hard";
         }
@@ -75,8 +81,11 @@ public class DifficultyWindow : GenericWindow
     {
         //apply버튼을 눌렀다면 선택한 난이도가 json형태로 저장되어야 함.
 
-        windowManager.Open(2);
-        SaveDifficultySettings();
+        OptionManager.optionData.difficulty = difficultyLevels[selected];
+        OptionManager.SaveOptions();
+        Debug.Log($"Difficulty saved: {difficultyLevels[selected]}");
+        windowManager.Open(1);
+         
     }
 
     private void SaveDifficultySettings()
@@ -92,4 +101,4 @@ public class DifficultyWindow : GenericWindow
 
      
 //todo
-//난이도 선택후 
+//난이도 선택후 저장 

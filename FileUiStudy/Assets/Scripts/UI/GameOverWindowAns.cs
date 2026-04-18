@@ -45,6 +45,7 @@ public class GameOverWindowAns : GenericWindow
         base.Open();
         ResetStats();
         routine = StartCoroutine(CoplayGameOverRoutine());
+        Debug.Log($"last score: {OptionManager.optionData.score}");
     }
 
     public override void Close()
@@ -54,11 +55,14 @@ public class GameOverWindowAns : GenericWindow
             StopCoroutine(routine);
             routine = null;   
         }
-            base.Close();
+        OptionManager.optionData.score = finalScore; // 닫힐 때 저장
+        OptionManager.SaveOptions();
+        base.Close();
     }
 
     public void OnNext()
     {
+        
         windowManager.Open(0);
     }
 
@@ -119,6 +123,10 @@ public class GameOverWindowAns : GenericWindow
             yield return null;
         }
         scoreValue.text = $"{finalScore:D9}";
+        //저장
+        //OptionManager.optionData.score = finalScore;
+        //OptionManager.SaveOptions();
+        //Debug.Log($"saved score: {OptionManager.optionData.score}");
         routine = null;
     }
 }

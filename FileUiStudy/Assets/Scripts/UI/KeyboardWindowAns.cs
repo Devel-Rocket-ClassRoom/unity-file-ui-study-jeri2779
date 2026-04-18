@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class KeyboardWindowAns : GenericWindow
 {
@@ -40,6 +41,7 @@ public class KeyboardWindowAns : GenericWindow
     public override void Open()
     {
         sb.Clear();
+        sb.Append(OptionManager.optionData.name);
         timer = 0f;
         blink = false;
         base.Open();
@@ -73,6 +75,10 @@ public class KeyboardWindowAns : GenericWindow
     }
     public void OnAccept()
     {
+        OptionManager.optionData.name = sb.ToString().ToUpper();
+        OptionManager.SaveOptions();
+        Debug.Log($"name saved: {OptionManager.optionData.name}");
+        windowManager.Open(3);
     }
     private void UpdateField()
     {
