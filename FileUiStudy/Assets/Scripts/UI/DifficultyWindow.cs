@@ -51,7 +51,7 @@ public class DifficultyWindow : GenericWindow
         {
              
             selected = 0;
-            difficultyLevels[selected] = "Easy";
+            //difficultyLevels[selected] = "Easy";
         }
     }
     public void OnNormal(bool active)
@@ -60,7 +60,7 @@ public class DifficultyWindow : GenericWindow
         {
             
             selected = 1;
-            difficultyLevels[selected] = "Normal";
+            //difficultyLevels[selected] = "Normal";
         }
     }
     public void OnHard(bool active)
@@ -69,7 +69,7 @@ public class DifficultyWindow : GenericWindow
         {
            
             selected = 2;
-            difficultyLevels[selected] = "Hard";
+            //difficultyLevels[selected] = "Hard";
         }
     }
     public void OnCancel()

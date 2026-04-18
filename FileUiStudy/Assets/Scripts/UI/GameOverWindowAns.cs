@@ -57,6 +57,7 @@ public class GameOverWindowAns : GenericWindow
         }
         OptionManager.optionData.score = finalScore; // 닫힐 때 저장
         OptionManager.SaveOptions();
+        Debug.Log($"saved score: {OptionManager.optionData.score}");
         base.Close();
     }
 
