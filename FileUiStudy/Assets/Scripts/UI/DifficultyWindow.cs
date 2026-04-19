@@ -11,13 +11,13 @@ public class DifficultyWindow : GenericWindow
 
     public int selected;
 
-    private class DifficultySettings
-    {
-        public string selectedDifficulty;
-    }
+    //private class DifficultySettings
+    //{
+    //    public string selectedDifficulty;
+    //}
 
     private string[] difficultyLevels = { "Easy", "Normal", "Hard" };
-    private string fileName = "difficulty_settings.json"; // 난이도 설정을 저장할 파일 이름
+    //private string fileName = "difficulty_settings.json"; // 난이도 설정을 저장할 파일 이름
 
 
     private void Awake()
@@ -88,15 +88,15 @@ public class DifficultyWindow : GenericWindow
          
     }
 
-    private void SaveDifficultySettings()
-    {
-        DifficultySettings settings = new DifficultySettings
-        {
-            selectedDifficulty = difficultyLevels[selected]
-        };
-        string json = JsonConvert.SerializeObject(settings);
-        System.IO.File.WriteAllText(System.IO.Path.Combine(Application.persistentDataPath, fileName), json);
-    }
+    //private void SaveDifficultySettings()
+    //{
+    //    DifficultySettings settings = new DifficultySettings
+    //    {
+    //        selectedDifficulty = difficultyLevels[selected]
+    //    };
+    //    string json = JsonConvert.SerializeObject(settings);
+    //    System.IO.File.WriteAllText(System.IO.Path.Combine(Application.persistentDataPath, fileName), json);
+    //}
 }
 
      

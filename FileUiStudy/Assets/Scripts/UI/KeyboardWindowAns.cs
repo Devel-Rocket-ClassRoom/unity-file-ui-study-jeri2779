@@ -33,7 +33,7 @@ public class KeyboardWindowAns : GenericWindow
         {
             blink = !blink;
             timer = 0f;
-            inputField.text = sb.ToString() + (blink ? "_" : "");
+            UpdateField();
         }
         
     }
@@ -45,7 +45,10 @@ public class KeyboardWindowAns : GenericWindow
         timer = 0f;
         blink = false;
         base.Open();
-        UpdateField();
+        if (sb.Length >= maxCharacters)
+            inputField.SetText(sb);                              
+        else
+            inputField.text = sb.ToString() + (blink ? "_" : "");  
     }
     public override void Close()
     {
@@ -63,6 +66,7 @@ public class KeyboardWindowAns : GenericWindow
     }
     public void OnCancel()
     {
+        windowManager.Open(0);
         sb.Clear();
         UpdateField();
     }
@@ -72,6 +76,7 @@ public class KeyboardWindowAns : GenericWindow
         {
             sb.Length -= 1;
         }
+        UpdateField();
     }
     public void OnAccept()
     {
@@ -82,15 +87,15 @@ public class KeyboardWindowAns : GenericWindow
     }
     private void UpdateField()
     {
-        bool showCursor = sb.Length < maxCharacters && !blink;
+        bool showCursor = sb.Length < maxCharacters && !blink;//
         if(showCursor)
         {
             sb.Append("_");
         }
+        inputField.SetText(sb);
         if(showCursor)
         {
             sb.Length -= 1;
         }
-        inputField.SetText(sb);
     }
 }
