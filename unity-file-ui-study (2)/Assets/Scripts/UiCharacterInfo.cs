@@ -16,7 +16,7 @@ public class UiCharacterInfo : MonoBehaviour
 
     public UiInvenSlot weaponSlot;
     public UiInvenSlot armorSlot;
-    public UiItemSelectPopup itemSelectPopup;
+    public UiItemSelect itemSelectPopup;
     public void SetEmpty()
     {
         charImageIcon.sprite = null;

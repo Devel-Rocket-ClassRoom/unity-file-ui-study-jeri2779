@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class UiItemSelectPopup : MonoBehaviour
+public class UiItemSelect : MonoBehaviour
 {
+    public GameObject panel; 
     public UiInvenSlotList uiInvenSlotList;
     public UnityEvent<SaveItemData> onItemSelected;
 
@@ -14,19 +15,20 @@ public class UiItemSelectPopup : MonoBehaviour
 
     public void Open(UiInvenSlotList.FilteringOptions filter)
     {
-        Debug.Log("Open 호출됨: " + filter);
         CurrentFilter = filter;
-        gameObject.SetActive(true);
-
+        panel.SetActive(true);
         uiInvenSlotList.SetSaveItemDataList(SaveLoadManager.Data.ItemList);
         uiInvenSlotList.Filtering = filter;
+
+        // RemoveListener 후 AddListener로 중복 방지
+        uiInvenSlotList.onSelectSlot.RemoveListener(OnSelectItem);
         uiInvenSlotList.onSelectSlot.AddListener(OnSelectItem);
     }
 
     public void Close()
     {
         uiInvenSlotList.onSelectSlot.RemoveListener(OnSelectItem);
-        gameObject.SetActive(false);
+        panel.SetActive(false);
     }
 
     private void OnSelectItem(SaveItemData saveItemData)
