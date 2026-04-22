@@ -1,5 +1,0 @@
-Id,Type,Name,Desc,Attack,Defense,Hp,Icon
-Char1,Melee,Warrior,WarriorInfo,100,100,1000,Icon_Helmet01
-Char2,Ranged,Mage,MageInfo,150,70,500,Skill1
-Char3,Melee,Tank,TankInfo,50,250,1500,Icon_Shield05
-Char4,Ranged,Archer,ArcherInfo,120,80,800,Icon_Bow01

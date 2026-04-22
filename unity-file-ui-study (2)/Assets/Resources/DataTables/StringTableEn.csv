@@ -1,0 +1,50 @@
+Id,String
+,
+HELLO,Hello~
+BYE,Bye~
+YOU_DIE,You Die...
+ITEM_1_NAME,Sword
+ITEM_2_NAME,Shield
+ITEM_3_NAME,Bow
+ITEM_4_NAME,Potion
+ITEM_1_DESC,This is a sword.
+ITEM_2_DESC,This is a shield.
+ITEM_3_DESC,This is a bow.
+ITEM_4_DESC,This is a potion.
+CHARATTACK,Attack
+CHARDEFENSE,Defense
+CHARHEALTH,Health
+KNIGHT,Knight
+ARCHER,Archer
+MAGE,Mage
+NAME,Name
+DESC,Description
+TYPE,Type
+VALUE,Value
+COST,Cost
+WEAPON,Weapon
+EQUIP,Equipment
+CONSUMABLE,Consumable
+LOAD,Load
+SAVE,Save
+ITEM_CREATE,Create Item
+ITEM_DELETE,Delete Item
+SORT,Sort
+SORT_DATE_ASC,Date (Ascending)
+SORT_DATE_DESC,Date (Descending)
+SORT_NAME_ASC,Name (Ascending)
+SORT_NAME_DESC,Name (Descending)
+SORT_COST_ASC,COST (Ascending)
+SORT_COST_DESC,COST (Descending)
+SORT_ATK_ASC,Attack (Ascending)
+SORT_ATK_DESC,Attack (Descending)
+SORT_DEF_ASC,Defense (Ascending)
+SORT_DEF_DESC,Defense (Descending)
+SORT_HP_ASC,Health (Ascending)
+SORT_HP_DESC,Health (Descending)
+FILTER,Filter
+FILTER_ALL,All
+FILTER_WEAPON,Weapon
+FILTER_EQUIP,Equipment
+FILTER_CONSUMABLE,Consumable
+FILTER_NONE_CONSUMABLE,NONECONSUMABLE
