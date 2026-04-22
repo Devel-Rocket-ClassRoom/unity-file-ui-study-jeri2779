@@ -35,14 +35,38 @@ public class UiCharacterInfo : MonoBehaviour
     {
         var st = DataTableManager.StringTable;
         var data = saveCharacterData.CharacterData;
+        //int totalAttack = data.Attack + (saveCharacterData.EquippedWeapon?.ItemData.Value ?? 0);
+        //int totalDefense = data.Defense + (saveCharacterData.EquippedArmor?.ItemData.Value ?? 0);
+        int weaponValue;
+        int defenseValue;
+
+        if (saveCharacterData.EquippedWeapon != null)
+        {
+            weaponValue = saveCharacterData.EquippedWeapon.ItemData.Value;
+        }
+        else
+        {
+            weaponValue = 0;  
+        }
+        if(saveCharacterData.EquippedArmor != null)
+        {
+            defenseValue = saveCharacterData.EquippedArmor.ItemData.Value;
+        }
+        else
+        {
+            defenseValue = 0;  
+        }
+        int totalAttack = data.Attack + weaponValue;
+        int totalDefense = data.Defense + defenseValue;
 
         charImageIcon.sprite = data.SpriteIcon;
         textCharName.text = string.Format(FormatCommon, st.Get("NAME"), data.StringName);
         textCharDescription.text = string.Format(FormatCommon, st.Get("DESC"), data.StringDesc);
         string typeId = data.Type.ToString().ToUpper();
         textCharType.text = string.Format(FormatCommon, st.Get("TYPE"), st.Get(typeId));
-        textCharAttack.text = string.Format(FormatCommon, st.Get("CHARATTACK"), data.Attack);
-        textCharDefense.text = string.Format(FormatCommon, st.Get("CHARDEFENSE"), data.Defense);
+
+        textCharAttack.text = string.Format(FormatCommon, st.Get("CHARATTACK"), totalAttack);
+        textCharDefense.text = string.Format(FormatCommon, st.Get("CHARDEFENSE"), totalDefense);
         textCharHealth.text = string.Format(FormatCommon, st.Get("CHARHEALTH"), data.Health);
 
         if (saveCharacterData.EquippedWeapon != null)

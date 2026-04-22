@@ -69,6 +69,9 @@ public class UiCharInventory : MonoBehaviour
         OnChangeFiltering(charFiltering.value);
         OnChangeSorting(charSorting.value);
         uiCharacterSlotList.SetSaveCharacterDataList(SaveLoadManager.Data.CharacterList);
+
+        currentData = null;
+        uiCharacterInfo.SetEmpty();
     }
 
     public void OnCreateCharacter()
