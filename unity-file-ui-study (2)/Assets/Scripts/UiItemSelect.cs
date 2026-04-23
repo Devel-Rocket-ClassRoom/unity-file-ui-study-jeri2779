@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;   
 
 public class UiItemSelect : MonoBehaviour
 {
@@ -17,29 +18,41 @@ public class UiItemSelect : MonoBehaviour
     {
         CurrentFilter = filter;
         panel.SetActive(true);
+        
+
         uiInvenSlotList.SetSaveItemDataList(SaveLoadManager.Data.ItemList);
         uiInvenSlotList.Filtering = filter;
+        
 
-        // RemoveListener 후 AddListener로 중복 방지
+
         uiInvenSlotList.onSelectSlot.RemoveListener(OnSelectItem);
         uiInvenSlotList.onSelectSlot.AddListener(OnSelectItem);
+    }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
     }
 
     public void Close()
     {
-        uiInvenSlotList.onSelectSlot.RemoveListener(OnSelectItem);
         panel.SetActive(false);
+        uiInvenSlotList.onSelectSlot.RemoveListener(OnSelectItem);
     }
 
     private void OnSelectItem(SaveItemData saveItemData)
     {
         onItemSelected.Invoke(saveItemData);
-        Close();
+         
     }
 
     public void OnClickUnequip()
     {
         onItemSelected.Invoke(null);
-        Close();
+        
     }
+    
+    
 }

@@ -12,11 +12,13 @@ public class UiInvenSlot : MonoBehaviour
     public SaveItemData SaveItemData { get; private set; }
 
     public Button button;
-    
+    public Sprite emptySlotSprite;
+    public string IdleText;
+
     public void SetEmpty()
     {
-        imageIcon.sprite = null;
-        textName.text = string.Empty;
+        imageIcon.sprite = emptySlotSprite;
+        textName.text = IdleText;
         SaveItemData = null;
     }
 
@@ -26,4 +28,6 @@ public class UiInvenSlot : MonoBehaviour
         imageIcon.sprite = SaveItemData.ItemData.SpriteIcon;
         textName.text = SaveItemData.ItemData.StringName;
     }
+
+   
 }

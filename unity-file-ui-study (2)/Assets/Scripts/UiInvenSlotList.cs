@@ -22,7 +22,7 @@ public class UiInvenSlotList : MonoBehaviour
         Weapon,
         Equip,
         Consumable,
-        
+
     }
 
     public readonly System.Comparison<SaveItemData>[] comparisons =
@@ -99,7 +99,7 @@ public class UiInvenSlotList : MonoBehaviour
     {
         saveItemDataList = null;
     }
-    
+
     public void SetSaveItemDataList(List<SaveItemData> source)
     {
         saveItemDataList = source.ToList();
